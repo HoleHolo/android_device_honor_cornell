@@ -19,7 +19,7 @@ jobs:
         chmod +x ./repo
         export PATH=$PATH:$(pwd)/
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
-        cp /home/runner/work/android_device_honor_cornell/android_device_honor_cornell/build/.repo/repo/repo /home/runner/work/android_device_honor_cornell/android_device_honor_cornell/repo
+        cp ./.repo/repo/repo ./repo
         # repo sync
 
     - name: Create Device Tree
