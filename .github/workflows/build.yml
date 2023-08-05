@@ -36,7 +36,7 @@ jobs:
         cd ..
         shopt -s extglob
         ls -R
-        mv !(repo|build) ./build/device/honor/cornell
+        mv !(repo|build|android_device_honor_cornell) ./build/device/honor/cornell
 
     - name: Start to Build
       run: |
