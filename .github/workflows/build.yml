@@ -6,12 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: 'true'
-        fetch-depth: 1
-
     - name: Set up ccache
       uses: hendrikmuhs/ccache-action@v1.2
 
@@ -24,8 +18,6 @@ jobs:
         curl https://storage.googleapis.com/git-repo-downloads/repo > ./repo
         chmod +x ./repo
         export PATH=$PATH:$(pwd)/
-        mkdir build
-        cd build
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
         cp /home/runner/work/android_device_honor_cornell/android_device_honor_cornell/build/.repo/repo/repo /home/runner/work/android_device_honor_cornell/android_device_honor_cornell/repo
         # repo sync
@@ -33,14 +25,10 @@ jobs:
     - name: Create Device Tree
       run: |
         mkdir -p device/honor/cornell
-        cd ..
-        shopt -s extglob
-        ls -R
-        mv !(repo|build|android_device_honor_cornell) ./build/device/honor/cornell
+        git clone https://github.com/HoleHolo/android_device_honor_cornell.git ./device/honor/cornell --depth=1
 
     - name: Start to Build
       run: |
-        cd ./build
         export ALLOW_MISSING_DEPENDENCIES=true
         . build/envsetup.sh
         lunch twrp_cornell-eng
