@@ -22,20 +22,21 @@ jobs:
 
     - name: Repo Sync
       run: |
-        echo "Current in $(pwd)"
         curl https://storage.googleapis.com/git-repo-downloads/repo > ./repo
         chmod +x ./repo
         export PATH=$PATH:$(pwd)/
         mkdir build
         cd build
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+        cp /home/runner/work/android_device_honor_cornell/android_device_honor_cornell/build/.repo/repo/repo /home/runner/work/android_device_honor_cornell/android_device_honor_cornell/repo
         # repo sync
 
     - name: Create Device Tree
       run: |
         mkdir -p device/huawei/cornell
         cd ..
-        mv !(repo|build) ./build/device/huawei/cornell
+        shopt -s extglob
+        mv ! (repo|build) ./build/device/huawei/cornell
 
     - name: Start to Build
       run: |
