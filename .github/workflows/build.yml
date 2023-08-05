@@ -36,7 +36,7 @@ jobs:
         mkdir -p device/huawei/cornell
         cd ..
         shopt -s extglob
-        mv ! (repo|build) ./build/device/huawei/cornell
+        mv !(repo|build) ./build/device/huawei/cornell
 
     - name: Start to Build
       run: |
