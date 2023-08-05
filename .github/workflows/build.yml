@@ -20,7 +20,7 @@ jobs:
         export PATH=$PATH:$(pwd)/
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
         cp ./.repo/repo/repo ./repo
-        # repo sync
+        repo sync
 
     - name: Create Device Tree
       run: |
