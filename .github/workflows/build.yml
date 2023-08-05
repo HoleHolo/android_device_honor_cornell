@@ -17,11 +17,15 @@ jobs:
 
     - name: Config Dependences
       run: |
-        sudo apt install python3 python-is-python3 build-essential ccache g++-multilib gcc-multilib git libncurses5 repo
+        sudo apt install python3 python-is-python3 build-essential ccache g++-multilib gcc-multilib git libncurses5 curl
         sudo apt install tree
 
     - name: Repo Sync
       run: |
+        echo "Current in $(pwd)"
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ./repo
+        chmod +x ./repo
+        export PATH=$PATH:$(pwd)/
         mkdir build
         cd build
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
