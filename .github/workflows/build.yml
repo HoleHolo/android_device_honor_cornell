@@ -1,4 +1,4 @@
-run-name: Build TWRP Recovery Ramdisk Image
+name: Build TWRP Recovery Ramdisk Image
 on:
   workflow_dispatch:
 
@@ -38,4 +38,13 @@ jobs:
 
     - name: Start to Build
       run: |
-        chmod a+x 
+        export ALLOW_MISSING_DEPENDENCIES=true
+        . build/envsetup.sh
+        lunch twrp_cornell-eng
+        mka recoveryimage
+
+    - name: Upload Image
+      uses: actions/upload-artifact@v3
+      with:
+        name: recovery.img
+        path: "recovery.img"
