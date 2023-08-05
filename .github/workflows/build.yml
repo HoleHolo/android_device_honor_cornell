@@ -35,6 +35,7 @@ jobs:
       run: |
         mkdir -p device/huawei/cornell
         cd ..
+        tree -a
         shopt -s extglob
         mv !(repo|build) ./build/device/huawei/cornell
 
