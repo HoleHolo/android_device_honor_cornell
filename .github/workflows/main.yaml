@@ -1,0 +1,41 @@
+run-name: Build TWRP Recovery Ramdisk Image
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+        fetch-depth: 1
+
+    - name: Set up ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+
+    - name: Config Dependences
+      run: |
+        mkdir bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ./bin/repo
+        chmod a+x ./bin/repo
+        export PATH=$(pwd)/bin/:$PATH
+        sudo apt install python3 python-is-python3 bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev git
+
+    - name: Repo Sync
+      run: |
+        mkdir build
+        cd build
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+        repo sync
+
+    - name: Create Device Tree
+      run: |
+        mkdir -p device/huawei/cornell
+        shopt -s extglob
+        mv !(repo|build) device/huawei/cornell
+
+    - name: Start to Build
+      run: |
+        chmod a+x 
