@@ -33,11 +33,12 @@ jobs:
 
     - name: Create Device Tree
       run: |
-        mkdir -p device/huawei/cornell
+        echo "$(pwd)"
+        mkdir -p ./build/device/honor/cornell
         cd ..
         tree -a
         shopt -s extglob
-        mv !(repo|build) ./build/device/huawei/cornell
+        mv !(repo|build) ./build/device/honor/cornell
 
     - name: Start to Build
       run: |
