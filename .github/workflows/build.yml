@@ -18,7 +18,7 @@ jobs:
         curl https://storage.googleapis.com/git-repo-downloads/repo > ./repo
         chmod +x ./repo
         export PATH=$PATH:$(pwd)/
-        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
         cp ./.repo/repo/repo ./repo
         repo sync
 
